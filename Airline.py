@@ -8,32 +8,7 @@
 
 
 from UC import AirMain
-
-class Bookings():
-    
-    def __init__(self, first_name, last_name, address, from_city, to_city, seat, phone_number, email):
-        """
-            Description: Constructor of Bookings Class
-            Parametres: Takes class fields
-            Retuns: None, Just initialize the values of object
-        """
-        self.first_name = first_name
-        self.last_name = last_name
-        self.address = address
-        self.from_city = from_city
-        self.to_city = to_city
-        self.seat = seat
-        self.phone_number = phone_number
-        self.email = email
-
-    def __str__(self):
-        """
-            Description: To return textual content of the Booking class Object
-            Parameters: Takes Instance (Object) of class as arguments
-            Returns: Returns String Representation of object, understandable by User
-        """
-        return f"Full Name is {self.first_name} {self.last_name}\ntravelling details are {self.from_city} to {self.to_city}a,{self.seat}\nPhone Number & email is {self.phone_number} and {self.email} respectively"
-
+from passenger import Bookings
 
 def Add_booking_from_console():
     """
@@ -68,10 +43,57 @@ def Storing_bookings_in_list():
         if (bookings_add_choice.upper() == "N"):
             break
     return booking_list
+    
+
+
+def updating_bookings(book_list):
+    """
+        Description: Editing Contact Details form Console i.e. by user choice
+        Parameters: None
+        Returns: Returns a list containing objects of Contact Class that is taken form Console i.e. User
+    """
+    updated_person_name = input(
+        "Enter the name of person, whom details you want to edit: ").upper()
+    try:
+        for item in book_list:
+            if item.first_name.upper() == updated_person_name:
+                choice = input(
+                    "Enter choice u want to edit:\n 1 : FN,2 : LN,3 : Address,4 : From,5 : To,6 : Seat,7 : Phone,8 : Email")
+                if (choice == "1"):
+                    fn = input("Enter updated first name: ")
+                    item.first_name = fn
+                elif (choice == "2"):
+                    ln = input("Enter updated last name: ")
+                    item.last_name = ln
+                elif (choice == "3"):
+                    addrs = input("Enter updated address: ")
+                    item.address = addrs
+                elif (choice == "4"):
+                    from_city = input("Enter updated from_city: ")
+                    item.from_city = from_city
+                elif (choice == "5"):
+                    to_city = input("Enter updated to_city: ")
+                    item.to_city = to_city
+                elif (choice == "6"):
+                    seat = input("Enter updated seat number: ")
+                    item.seat = seat
+                elif (choice == "7"):
+                    phn_no = input("Enter updated phone number: ")
+                    item.phone_number = phn_no
+                elif (choice == "8"):
+                    email = input("Enter updated email: ")
+                    item.email = email
+                else:
+                    print("Invalid Choice")
+    except Exception as ex:
+        print(ex)
 
 
 if __name__ == "__main__":
     booking_list = []
     Storing_bookings_in_list()
+    user_choice = input("Do u want to update Bookings \"Y\" OR \"N\":").upper()
+    if (user_choice.upper() == "Y"):
+        updating_bookings(booking_list)
     for item in booking_list:
         print(str(item))
